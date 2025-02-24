@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "393108286834",
+    "project_id": "tradecraft-43e45",
+    "storage_bucket": "tradecraft-43e45.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:393108286834:android:376407600da5994d2841eb",
+        "android_client_info": {
+          "package_name": "com.example.trade_craft"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApNJtgzOmgqVAMasCdxRRxxZWElyJglJI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
