@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:trade_craft/features/craft_personal_profile/logic/profile_cubit.dart';
 import 'package:trade_craft/features/craft_personal_profile/ui/widgets/menu_button.dart';
 
+import '../../../core/helpers/constant.dart';
 import '../../../core/routing/routes.dart';
+import '../logic/profile_state.dart';
 
 
 class CraftPersonalProfileScreen extends StatelessWidget {
@@ -11,178 +15,185 @@ class CraftPersonalProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          // Gradient Background
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xFF45404a), Color(0xFF45404a)],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
-                ),
-              ),
-              child: Column(
-                children: [
-                  SizedBox(height: 40),
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.menu, color: Colors.white),
-                        onPressed: () {},
+      body: BlocBuilder<ProfileCubit, ProfileState>
+        (builder: (context, state) {
+          return state.when(initial: () => SizedBox.shrink(), loading: () => Center(child: CircularProgressIndicator(
+            color: Colors.red,
+          )), loaded: (profile) {
+            return Column(
+              children: [
+                // Gradient Background
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Color(0xFF45404a), Color(0xFF45404a)],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
                       ),
-
-                      const Spacer(),
-                      const Text(
-                        'الملف الشخصي',
-                        style: TextStyle(
-                          fontSize: 24,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(30),
                       ),
-                      const Spacer(),
-                      Image.asset('assets/images/logo2.png', height: 40),
-
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20),
+                    ),
                     child: Column(
                       children: [
-                        Container(
-                          width: 120,
-                          height: 120,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(color: Colors.white, width: 4),
-                            image: DecorationImage(
-                              image: NetworkImage(profileImage),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 16),
-                        Text(
-                          'هشام أحمد هاشم على',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(height: 8),
-                        Text(
-                          'سباك',
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(0.9),
-                            fontSize: 16,
-                          ),
-                        ),
-                        SizedBox(height: 16),
-                        // Action Buttons
-                        SizedBox(width: 12),
-                        SizedBox(height: 16),
-                        Text(
-                          'السباكة',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                        SizedBox(height: 40),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              'القاهره -مدرسة السعديه بنين',
+                            IconButton(
+                              icon: Icon(Icons.menu, color: Colors.white),
+                              onPressed: () {},
+                            ),
+
+                            const Spacer(),
+                            const Text(
+                              'الملف الشخصي',
                               style: TextStyle(
-                                color: Colors.white.withOpacity(0.8),
-                                fontSize: 14,
-                              ),
-                            ),
-                            SizedBox(width: 10),
-                            Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
+                                fontSize: 24,
                                 color: Colors.white,
-                                shape: BoxShape.circle,
-                              ),
-                              child: Icon(
-                                Icons.edit_outlined,
-                                color: Colors.red,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
+                            const Spacer(),
+                            Image.asset('assets/images/logo2.png', height: 40),
+
                           ],
                         ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          // Menu Items
-          Expanded(
-            child: Stack(
-              children: [
-                Positioned(
-                  left: 30,
-                  top: 0,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 4,
-                          offset: Offset(0, 2),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 20),
+                          child: Column(
+                            children: [
+                              Container(
+                                width: 120,
+                                height: 120,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(color: Colors.white, width: 4),
+                                  image: DecorationImage(
+                                    image: NetworkImage(profileImage),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 16),
+                              Text(
+                                profile.data.first.name,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                'سباك',
+                                style: TextStyle(
+                                  color: Colors.white.withOpacity(0.9),
+                                  fontSize: 16,
+                                ),
+                              ),
+                              SizedBox(height: 16),
+                              // Action Buttons
+                              SizedBox(width: 12),
+                              SizedBox(height: 16),
+                              Text(
+                                profile.data.first.phone,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'القاهره -مدرسة السعديه بنين',
+                                    style: TextStyle(
+                                      color: Colors.white.withOpacity(0.8),
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  SizedBox(width: 10),
+                                  Container(
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Icon(
+                                      Icons.edit_outlined,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ],
-                    ),
-                    child: Text(
-                      'Plus',
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.w600,
-                      ),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 50, left: 16, right: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // Menu Items
+                Expanded(
+                  child: Stack(
                     children: [
-                      MenuButton(
-                        icon: Icons.description_outlined,
-                        label: 'Background',
+                      Positioned(
+                        left: 30,
+                        top: 0,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 4,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Text(
+                            'Plus',
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
                       ),
-                      MenuButton(
-                        icon: Icons.language_outlined,
-                        label: 'English',
+                      Padding(
+                        padding: EdgeInsets.only(top: 50, left: 16, right: 16),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            MenuButton(
+                              icon: Icons.description_outlined,
+                              label: 'Background',
+                            ),
+                            MenuButton(
+                              icon: Icons.language_outlined,
+                              label: 'English',
+                            ),
+                            MenuButton(
+                              icon: Icons.school_outlined,
+                              label: 'Education',
+                            ),
+                            MenuButton(icon: Icons.work_outline, label: 'Career'),
+                          ],
+                        ),
                       ),
-                      MenuButton(
-                        icon: Icons.school_outlined,
-                        label: 'Education',
-                      ),
-                      MenuButton(icon: Icons.work_outline, label: 'Career'),
                     ],
                   ),
                 ),
               ],
-            ),
-          ),
-        ],
-      ),
+            );
+          }, error: (error) => SizedBox.shrink(),);
+        },),
     );
   }
 }

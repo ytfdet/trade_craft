@@ -16,7 +16,8 @@ class MenuItem {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   final List<MenuItem> _menuItems = [
-    MenuItem(id: 'account', title: 'الحساب', icon: Icons.person_outline),
+    MenuItem(
+        id: 'account', title: 'الحساب', icon: Icons.person_outline),
     MenuItem(
       id: 'notifications',
       title: 'الاشعارات',
@@ -84,20 +85,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const Spacer(),
-                      // IconButton(
-                      //   icon: const Icon(
-                      //     Icons.arrow_forward_ios,
-                      //     size: 24,
-                      //   ),
-                      //   color: Colors.white,
-                      //   onPressed: () {
-                      //     Navigator.pushNamed(
-                      //       context,
-                      //       Routes.craftMyOrderScreen,
-                      //     );
-                      //   },
-                      // ),
                     ],
                   ),
                   verticalSpacing(30),

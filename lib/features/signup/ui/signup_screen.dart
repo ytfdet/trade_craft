@@ -3,7 +3,6 @@ import 'package:trade_craft/features/signup/ui/widgets/signup_form.dart';
 import 'widgets/custom_dropdown.dart';
 import 'widgets/sign_up_bloc_listener.dart';
 
-
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
 
@@ -13,9 +12,7 @@ class SignupScreen extends StatelessWidget {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-        ),
+        decoration: const BoxDecoration(color: Colors.white),
         child: SafeArea(
           child: SingleChildScrollView(
             child: Column(
@@ -27,11 +24,15 @@ class SignupScreen extends StatelessWidget {
                   width: double.infinity,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 16.0, right: 16.0,bottom: 16.0),
+                  padding: const EdgeInsets.only(
+                    left: 16.0,
+                    right: 16.0,
+                    bottom: 16.0,
+                  ),
                   child: Card(
                     elevation: 8,
                     shadowColor: Colors.black,
-                   // color: Color(0xFF1B5E20),
+                    // color: Color(0xFF1B5E20),
                     color: const Color(0xFF45404a),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
@@ -51,12 +52,7 @@ class SignupScreen extends StatelessWidget {
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 20),
-                          CustomDropdown(
-                            items: const ['حساب شخصي', 'حساب تجاري'],
-                            hint: 'نوع الحساب',
-                            onChanged: (value) {},
-                          ),
-                          const SizedBox(height: 16),
+
                           // Row(
                           //   children: [
                           //     Expanded(
@@ -71,9 +67,7 @@ class SignupScreen extends StatelessWidget {
                           // ),
                           // const SizedBox(height: 8),
                           const SignupForm(),
-                          const SignupBlocListener()
-
-
+                          const SignupBlocListener(),
                         ],
                       ),
                     ),

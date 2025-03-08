@@ -11,8 +11,11 @@ import 'package:trade_craft/features/signup/logic/sign_up_cubit.dart';
 
 import '../../features/craft_my_order/ui/craft_my_order_details_screen.dart';
 import '../../features/craft_my_order/ui/craft_my_order_screen.dart';
+import '../../features/craft_my_order/ui/widgets/craft_my_order_history_screen.dart';
+import '../../features/craft_personal_profile/logic/profile_cubit.dart';
 import '../../features/craft_personal_profile/ui/craft_personal_profile.dart';
 import '../../features/login/ui/login_screen.dart';
+import '../../features/my_order/data/models/my_order_service_model.dart';
 import '../../features/settings/ui/settings_screen.dart';
 import '../../features/signup/ui/signup_screen.dart';
 import '../ex.dart';
@@ -20,14 +23,8 @@ import '../ex.dart';
 class AppRouter {
   Route generateRoute(RouteSettings settings) {
     //this arguments to be passed in any screen like this ( arguments as ClassName )
-    final arguments = settings.arguments;
-    switch (settings.name) {
-      //on boarding
-      // case Routes.onBoardingScreen:
-      //   return MaterialPageRoute(
-      //     builder: (context) => const OnBoardingScreen(),
-      //   );
 
+    switch (settings.name) {
       case Routes.loginScreen:
         return MaterialPageRoute(
           builder:
@@ -58,20 +55,28 @@ class AppRouter {
       case Routes.layoutScreen:
         return MaterialPageRoute(builder: (context) => const LayoutScreen());
       case Routes.craftMyOrderScreen:
+        return MaterialPageRoute(builder: (context) => CraftMyOrderScreen());
+      case Routes.craftMyOrderHistoryScreen:
         return MaterialPageRoute(
-          builder: (context) => const CraftMyOrderScreen(),
+          builder: (context) => CraftMyOrderHistoryScreen(),
         );
-      case Routes.serviceRequestScreen:
+      case Routes.craftMyOrderDetailsScreen:
+        final arguments = settings.arguments as MyOrderServiceModel;
         return MaterialPageRoute(
-          builder: (context) => CraftMyOrderDetailsScreen(),
+          builder:
+              (context) =>
+                  CraftMyOrderDetailsScreen(myOrderServiceModel: arguments),
         );
-        case Routes.craftPersonalProfileScreen:
+      case Routes.craftPersonalProfileScreen:
         return MaterialPageRoute(
-          builder: (context) => CraftPersonalProfileScreen(),//craftPersonalProfileScreen(),
+          builder:
+              (context) =>
+                  CraftPersonalProfileScreen(), //craftPersonalProfileScreen(),
         );
-        case Routes.settingsScreen:
+      case Routes.settingsScreen:
         return MaterialPageRoute(
-          builder: (context) => SettingsScreen(),//craftPersonalProfileScreen(),
+          builder:
+              (context) => SettingsScreen(), //craftPersonalProfileScreen(),
         );
 
       default:

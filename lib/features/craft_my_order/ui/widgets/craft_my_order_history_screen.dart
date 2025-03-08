@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:trade_craft/core/helpers/extention.dart';
 import 'package:trade_craft/features/craft_my_order/ui/widgets/craft_my_order_service_item.dart';
 
-import '../../../core/helpers/spacing.dart';
-import '../../../core/routing/routes.dart';
-import '../../my_order/data/models/my_order_service_model.dart';
+import '../../../../core/helpers/spacing.dart';
+import '../../../../core/routing/routes.dart';
+import '../../../my_order/data/models/my_order_service_model.dart';
 
-class CraftMyOrderScreen extends StatelessWidget {
-   CraftMyOrderScreen({super.key});
+
+class CraftMyOrderHistoryScreen extends StatelessWidget {
+  CraftMyOrderHistoryScreen({super.key});
   CollectionReference serviceDetails = FirebaseFirestore.instance.collection(
     'service_details',
   );
@@ -21,7 +22,7 @@ class CraftMyOrderScreen extends StatelessWidget {
         if (snapshot.hasData) {
           List<MyOrderServiceModel> myOrderServiceModelList = [];
           for (int i = 0; i < snapshot.data!.docs.length; i++) {
-            if(snapshot.data!.docs[i]['isAccept'] == false && snapshot.data!.docs[i]['isReject'] == false){
+            if(snapshot.data!.docs[i]['isAccept'] == true ){
               myOrderServiceModelList.add(
                 MyOrderServiceModel.fromFireStore(snapshot.data!.docs[i]),
               );
@@ -63,9 +64,9 @@ class CraftMyOrderScreen extends StatelessWidget {
                                 ),
                                 const Spacer(),
                                 const Text(
-                                  'الطلبات',
+                                  '  سجل الطلبات المقبولة',
                                   style: TextStyle(
-                                    fontSize: 24,
+                                    fontSize: 20,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                   ),

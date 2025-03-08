@@ -3,6 +3,8 @@ import 'package:get_it/get_it.dart';
 import 'package:trade_craft/features/signup/data/repos/sign_up_repo.dart';
 import 'package:trade_craft/features/signup/logic/sign_up_cubit.dart';
 
+import '../../features/craft_personal_profile/data/repos/profile_repo.dart';
+import '../../features/craft_personal_profile/logic/profile_cubit.dart';
 import '../../features/login/data/repos/login_repo.dart';
 import '../../features/login/logic/login_cubit.dart';
 import '../networking/api_service.dart';
@@ -22,4 +24,9 @@ Future<void> setupGetIt() async {
   //sign up
   getIt.registerLazySingleton<SignupRepo>(() => SignupRepo(getIt()));
   getIt.registerFactory<SignupCubit>(() => SignupCubit(getIt()));
+
+  // Profile
+  getIt.registerLazySingleton<ProfileRepo>(() => ProfileRepo(getIt()));
+  getIt.registerFactory<ProfileCubit>(() => ProfileCubit(getIt()));
+
 }

@@ -2,10 +2,76 @@ import 'package:flutter/material.dart';
 import 'package:trade_craft/core/helpers/spacing.dart';
 
 import '../../../core/routing/routes.dart';
+import '../../my_order/data/firebase_service.dart';
+import '../../my_order/data/models/my_order_service_model.dart';
+import '../../my_order/logic/order_controller.dart';
+import '../../my_order/logic/order_controller2.dart';
 
-class CraftMyOrderDetailsScreen extends StatelessWidget {
-  const CraftMyOrderDetailsScreen({super.key});
+class CraftMyOrderDetailsScreen extends StatefulWidget {
+  const CraftMyOrderDetailsScreen({super.key, required this.myOrderServiceModel,});
+  final MyOrderServiceModel myOrderServiceModel;
 
+  @override
+  State<CraftMyOrderDetailsScreen> createState() => _CraftMyOrderDetailsScreenState();
+}
+
+class _CraftMyOrderDetailsScreenState extends State<CraftMyOrderDetailsScreen> {
+  late final OrderController _controller;
+  late final OrderController2 _controller2;
+  bool _isUpdating = false;
+  bool _isUpdating2 = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = OrderController(OrderService());
+    _controller2 = OrderController2(OrderService());
+  }
+
+  Future<void> _handleAcceptToggle() async {
+    setState(() => _isUpdating = true);
+
+    try {
+      await _controller.toggleAcceptStatus(widget.myOrderServiceModel);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Status updated to ${widget.myOrderServiceModel.isAccept}')),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: $e')),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isUpdating = false);
+      }
+    }
+  }
+  Future<void> _handleRejectToggle() async {
+    setState(() => _isUpdating2 = true);
+
+    try {
+      await _controller2.toggleRejectStatus(widget.myOrderServiceModel);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Status updated to ${widget.myOrderServiceModel.isReject}')),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: $e')),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isUpdating = false);
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,31 +136,34 @@ class CraftMyOrderDetailsScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    buildInfoRow('الاسم', 'هشام احمد هاشم '),
+                    buildInfoRow('الاسم', widget.myOrderServiceModel.name),
                     const Divider(height: 1),
 
                     buildInfoRow('وصف المشكله',
-                        'الحنفيه بتنقط على العيال بليل وهما نايمينا لحقونا  '),
+                        widget.myOrderServiceModel.formDesc),
                     const Divider(height: 1),
 
-                    buildInfoRow('رقم الهاتف', '01012345678'),
+                    buildInfoRow('رقم الهاتف', widget.myOrderServiceModel.phone),
                     const Divider(height: 1),
 
                     buildInfoRow(
                       'العنوان',
-                      'المعادىن شارع الملك عبدالعزيز',
+                      widget.myOrderServiceModel.address,
                     ),
                     const Divider(height: 1),
-                    buildInfoRow('التاريخ', '2023-09-20 10:00 AM'),
+                    buildInfoRow('التاريخ', '${widget.myOrderServiceModel.date} ${widget.myOrderServiceModel.time}'),
                     const Divider(height: 1),
                     verticalSpacing(16),
                     Row(
                       children: [
-                        Expanded(
+                        widget.myOrderServiceModel.isAccept ?SizedBox.shrink(): Expanded(
                           child: GestureDetector(
-                            onTap: () {
+                            onTap: ()async {
+                              await _controller2.toggleRejectStatus(widget.myOrderServiceModel);
+                              _handleRejectToggle();
                               Navigator.pushNamed(
-                                context, Routes.craftMyOrderScreen,
+                                context,
+                                Routes.craftMyOrderScreen,
                               );
                             },
                             child: Container(
@@ -117,9 +186,11 @@ class CraftMyOrderDetailsScreen extends StatelessWidget {
                           ),
                         ),
                         Spacer(),
-                        Expanded(
+                        widget.myOrderServiceModel.isAccept ?SizedBox.shrink():Expanded(
                           child: GestureDetector(
-                            onTap: () {
+                            onTap: () async {
+                              await _controller.toggleAcceptStatus(widget.myOrderServiceModel);
+                              _handleAcceptToggle();
                               Navigator.pushNamed(
                                 context,
                                 Routes.craftMyOrderScreen,
@@ -139,7 +210,6 @@ class CraftMyOrderDetailsScreen extends StatelessWidget {
                                     child: Image.asset(
                                       'assets/images/accept.png',
                                       color: Colors.green,
-
                                     )
 
                                 ),

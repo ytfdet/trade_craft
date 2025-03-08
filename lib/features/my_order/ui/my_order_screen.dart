@@ -22,7 +22,7 @@ class MyOrderScreen extends StatelessWidget {
           List<MyOrderServiceModel> myOrderServiceModelList = [];
           for (int i = 0; i < snapshot.data!.docs.length; i++) {
             myOrderServiceModelList.add(
-              MyOrderServiceModel.fromJson(snapshot.data!.docs[i]),
+              MyOrderServiceModel.fromFireStore(snapshot.data!.docs[i]),
             );
           }
           return Scaffold(
@@ -82,7 +82,8 @@ class MyOrderScreen extends StatelessWidget {
                             itemBuilder: (context, index) {
                               return GestureDetector(
                                 onTap: () {
-                                  context.pushNamed(Routes.serviceMakerScreen);
+                                  print(snapshot.data!.docs.first.id);
+                                  // context.pushNamed(Routes.serviceMakerScreen);
                                 },
                                 child: MyOrderServiceItem(
                                   myOrderServiceModel: myOrderServiceModelList[index],

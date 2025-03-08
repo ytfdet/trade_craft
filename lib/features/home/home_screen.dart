@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trade_craft/core/routing/routes.dart';
 import 'package:trade_craft/features/home/ui/widgets/location_bar.dart';
 import 'package:trade_craft/features/home/ui/widgets/services_grid.dart';
 
@@ -23,7 +24,12 @@ class HomeScreen extends StatelessWidget {
                 const Spacer(),
                 Stack(
                   children: [
-                    const Icon(Icons.notifications_outlined, size: 24),
+                    GestureDetector(
+                      onTap:(){
+                        Navigator.pushNamed(context, Routes.craftMyOrderHistoryScreen);
+                      },
+                      child: const Icon(Icons.notifications_outlined, size: 24),
+                    ),
                     Positioned(
                       right: 0,
                       top: 0,
@@ -43,9 +49,7 @@ class HomeScreen extends StatelessWidget {
           ),
           const LocationBar(),
           const PromotionBanner(),
-          const Expanded(
-            child: ServicesGrid(),
-          ),
+          const Expanded(child: ServicesGrid()),
           //const BottomNavigation(),
         ],
       ),

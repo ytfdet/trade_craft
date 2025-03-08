@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trade_craft/core/routing/routes.dart';
 
 class OffersScreen extends StatelessWidget {
   const OffersScreen({super.key});
@@ -6,7 +7,9 @@ class OffersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('Offers Screen Soon'),
+      child: ElevatedButton(onPressed: (){
+        Navigator.pushNamed(context, Routes.craftPersonalProfileScreen);
+      }, child: Text("dasadsda")),
     );
   }
 }

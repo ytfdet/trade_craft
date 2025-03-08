@@ -7,6 +7,8 @@ import 'package:trade_craft/core/widgets/custom_text_field.dart';
 import 'package:trade_craft/features/signup/logic/sign_up_cubit.dart';
 import 'package:trade_craft/features/signup/ui/widgets/custom_checkbox.dart';
 
+import 'custom_dropdown.dart';
+
 class SignupForm extends StatefulWidget {
   const SignupForm({super.key});
 
@@ -25,6 +27,18 @@ class _SignupFormState extends State<SignupForm> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
 
         children: [
+          CustomDropdown(
+            items: const ['حساب شخصي', 'حساب شركة'],
+            hint: 'نوع الحساب',
+            onChanged: (value) {
+              if(value == 'حساب شخصي') {
+                context.read<SignupCubit>().gender = 0;
+              }else {
+                context.read<SignupCubit>().gender = 1;
+              }
+            },
+          ),
+          const SizedBox(height: 16),
            CustomTextField(
             controller: context.read<SignupCubit>().nameController,
             hint: 'الاسم الكامل',

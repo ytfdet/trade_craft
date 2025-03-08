@@ -9,7 +9,8 @@ class Routes{
   static const String  serviceMakerScreen= '/serviceMakerScreen';
   static const String  layoutScreen= '/layoutScreen';
   static const String  craftMyOrderScreen= '/craftMyOrderScreen';
-  static const String  serviceRequestScreen= '/serviceRequestScreen';
+  static const String  craftMyOrderHistoryScreen= '/craftMyOrderHistoryScreen';
+  static const String  craftMyOrderDetailsScreen= '/craftMyOrderDetailsScreen';
   static const String  craftPersonalProfileScreen= '/craftPersonalProfileScreen';
   static const String  settingsScreen= '/settingsScreen';
 

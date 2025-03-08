@@ -4,7 +4,9 @@ import 'package:trade_craft/features/my_order/data/models/my_order_service_model
 import '../../../../core/helpers/spacing.dart';
 
 class CraftMyOrderServiceItem extends StatelessWidget {
-  const CraftMyOrderServiceItem({super.key});
+  const CraftMyOrderServiceItem({super.key, required this.myOrderServiceModel, });
+  final MyOrderServiceModel   myOrderServiceModel;
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -33,38 +35,38 @@ class CraftMyOrderServiceItem extends StatelessWidget {
 
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      ' خالد رضا',
+                     Text(
+                      myOrderServiceModel.name,
                       style: TextStyle(
                         color: Colors.black,
                       ),
                     ),
                     verticalSpacing(8),
                      Text(
-                     "السلام عليكم",
+                      myOrderServiceModel.formDesc ,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                     ),
                     verticalSpacing(8),
                      Text(
-                     "01023469761",
+                     myOrderServiceModel.phone,
                     ),
                     verticalSpacing(8),
                     Text(
-                     "المعادى ",
+                      myOrderServiceModel.address,
                     ),
                     verticalSpacing(8),
                     Row(
                       children: [
                          Text(
-                         "10/10/2022",
+                         myOrderServiceModel.date,
                           style: TextStyle(
                             color: Colors.black,
                           ),
                         ),
                         horizontalSpacing(8),
                          Text(
-                          "10:10",
+                          myOrderServiceModel.time,
                           style: TextStyle(
                             color: Colors.black,
                           ),
