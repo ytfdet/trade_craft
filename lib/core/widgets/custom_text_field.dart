@@ -22,6 +22,7 @@ class CustomTextField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: hint,
         prefixIcon: Icon(icon),
+         suffixIcon: Icon(icon),
         filled: true,
         fillColor: Colors.white,
         border:border ?? OutlineInputBorder(

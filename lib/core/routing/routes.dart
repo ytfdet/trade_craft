@@ -13,6 +13,7 @@ class Routes{
   static const String  craftMyOrderDetailsScreen= '/craftMyOrderDetailsScreen';
   static const String  craftPersonalProfileScreen= '/craftPersonalProfileScreen';
   static const String  settingsScreen= '/settingsScreen';
+  static const String  userScreen= '/UserScreen';
 
 
 }

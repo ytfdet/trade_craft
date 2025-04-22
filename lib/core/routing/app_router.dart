@@ -16,6 +16,7 @@ import '../../features/craft_personal_profile/logic/profile_cubit.dart';
 import '../../features/craft_personal_profile/ui/craft_personal_profile.dart';
 import '../../features/login/ui/login_screen.dart';
 import '../../features/my_order/data/models/my_order_service_model.dart';
+import '../../features/profile/bn.dart';
 import '../../features/settings/ui/settings_screen.dart';
 import '../../features/signup/ui/signup_screen.dart';
 import '../ex.dart';
@@ -41,6 +42,10 @@ class AppRouter {
                 create: (context) => getIt<SignupCubit>(),
                 child: const SignupScreen(),
               ),
+        );case Routes.userScreen:
+        return MaterialPageRoute(
+          builder:
+              (context) =>  UserScreen(),
         );
       case Routes.homeScreen:
         return MaterialPageRoute(builder: (context) => const LayoutScreen());
